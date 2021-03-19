@@ -2,7 +2,6 @@ title = "nihilistkitten"
 description = "Hi! I'm Riley. My pronouns are they/them. I suppose this site is one of many ways in which I scream into the void."
 base_url = "https://nihilistkitten.me"
 compile_sass = true
-build_search_index = true
 
 [markdown]
 # Whether to do syntax highlighting
