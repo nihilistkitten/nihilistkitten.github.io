@@ -240,8 +240,9 @@ a.footnote {
     content: counter(footnote);
   }
   span {
+    // display: flex;
     position: absolute;
-    width: 20rem;
+    max-width: 20rem;
     padding: 14px 20px;
     opacity: 0;
     z-index: -1;
@@ -1070,6 +1071,7 @@ input {
   }
 
   a.footnote span {
+    max-width: 15rem;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -1091,6 +1093,7 @@ input {
     position: fixed;
   }
 }
+
 @media print {
   .sidebar-toggle {
     display: none;
