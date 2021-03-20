@@ -1,1 +1,30 @@
-{% extends "404.html" %}
+{% extends "base.html" %}
+{% block title %}{{ taxonomy.name }}{% endblock title %}
+{% block content %}
+<h1>
+  Tags
+</h1>
+{% for tag in terms %}
+<a href="{{ get_taxonomy_url(kind='tags', name=tag.name) }}">{{ tag.name }}</a><sup>{{ tag.pages | length }}</sup>
+  <!-- {% if paginator %} -->
+  <!-- {% set pages = paginator.pages %} -->
+  <!-- {% else %} -->
+  <!-- {% set pages = tag.pages %} -->
+  <!-- {% endif %} -->
+
+  <!-- {% set SLICE_AT = 1 %} -->
+  <!-- {% set sliced_pages = pages | slice(end=SLICE_AT) %} -->
+
+  <!-- {% for page in sliced_pages %} -->
+  <!--   <a class="tag" href="{{ page.permalink }}">{{ page.title }}</a> -->
+  <!--   {% if not loop.last %}&#183;{% endif %} -->
+  <!-- {% endfor %} -->
+
+  <!-- {% if pages | length > SLICE_AT %} -->
+  <!-- &#183; <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag.name) }}">view more</a> -->
+  <!-- {% endif %} -->
+<br>
+{% endfor %}
+
+{% endblock content %}
+
