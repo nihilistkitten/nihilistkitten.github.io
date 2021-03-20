@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ term.name }}{% endblock title %}
+{% block content %}
+
+<div class="posts">
+  {% if paginator %}
+  {% set pages = paginator.pages %}
+  {% else %}
+  {% set pages = term.pages %}
+  {% endif %}
+
+  {% for page in pages %}
+    {{ macros::page_preview(page=page) }}
+    <hr />
+  {% endfor %}
+</div>
+{% endblock content %}
+

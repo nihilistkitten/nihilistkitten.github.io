@@ -1,6 +1,8 @@
 +++
 title = "Making the Most of Speech Time"
 date = 2021-03-01
+[taxonomies]
+tags = ["debate", "drills"]
 +++
 
 These are some short notes on how to fit more content into your speech. The most significant restriction on your arguments, regardless of style, is that you cannot make them after the timer beeps. Therefore, fitting more arguments, deeper analysis, and/or a more coherent narrative into the time you have is in your interest. Much of the time, faster, more efficient debaters win rounds not because they go for quantity over quality or because they spread out their opponent; they win because they’re able to fit deeper, better-explained analysis into the same speech time.

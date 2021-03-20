@@ -1,8 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="post">
-  <h1 class="post-title">{{ page.title | safe }}</h1>
-  <span class="post-date">{{ page.date | safe }} </span>
+  {{ macros::page_header(page=page) }}
 
   {{ page.content | safe }}
 </div>

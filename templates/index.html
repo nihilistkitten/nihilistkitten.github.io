@@ -2,21 +2,7 @@
 
 <div class="posts">
   {% for page in section.pages %}
-    <h1 class="post-title">
-      <a href="{{ page.permalink }}">
-        {{ page.title }}
-      </a>
-    </h1>
-
-    <span class="post-date">
-      {{ page.date }}
-    </span>
-
-    <p>
-      {{ page.summary | safe }}
-    </p>
-
-    <a href="{{ page.permalink ~ "#continue-reading" }}">Continue Reading</a>
+    {{ macros::page_preview(page=page) }}
     <hr />
 
   {% endfor %}

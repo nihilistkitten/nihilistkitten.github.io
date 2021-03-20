@@ -1,6 +1,8 @@
 +++
 title = "Finding Lit for Debate"
 date = 2021-03-04
+[taxonomies]
+tags = ["debate", "drills"]
 +++
 
 One of the most useful things you can do to prepare for debate is to read as much as possible. My goal here isn't to convince you this is necessary, but rather to provide a few quick suggestions for how to find good readings. It's also not to talk about how to make good use of readings, because that's much more dependent on what specifically you're reading.

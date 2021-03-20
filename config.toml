@@ -1,7 +1,10 @@
 title = "nihilistkitten"
-description = "Hi! I'm Riley. My pronouns are they/them. I suppose this site is one of many ways in which I scream into the void."
+description = "Hi! I'm Riley. My pronouns are they/them. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void."
 base_url = "https://nihilistkitten.me"
 compile_sass = true
+taxonomies = [
+  { name = "tags", paginate_by = 10 },
+]
 
 [markdown]
 # Whether to do syntax highlighting

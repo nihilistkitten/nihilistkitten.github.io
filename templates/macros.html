@@ -1,0 +1,34 @@
+<!-- https://github.com/RatanShreshtha/DeepThought/blob/6bc44df307ab8f03c31ffe3ca99421072ec6f8bd/templates/macros.html#L92-L117 -->
+
+
+
+{% macro render_tags(tags) %}
+    {% for tag in tags %}
+      <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>{% if not loop.last %},{% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro page_header(page) %}
+  <h1 class="post-title">
+    <a href="{{ page.permalink }}">
+      {{ page.title }}
+    </a>
+  </h1>
+  <span class="post-date">
+    {{ page.date | safe }}
+    {% if page.taxonomies.tags %}
+      &#183; {{ self::render_tags(tags=page.taxonomies.tags) }}
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro page_preview(page) %}
+
+  {{ self::page_header(page=page) }}
+
+  <p>
+    {{ page.summary | safe }}
+  </p>
+
+  <a href="{{ page.permalink ~ "#continue-reading" }}">Continue Reading</a>
+{% endmacro %}
