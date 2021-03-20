@@ -115,7 +115,7 @@
 
     <div class="sidebar" id="sidebar">
       <div class="sidebar-item">
-        <label class="switch" float="left" style="vertical-align: middle;">
+        <label class="switch" title="Toggle Darkmode" float="left" style="vertical-align: middle;">
           <input id="darkmode-slider" type="checkbox" />
           <a
             class="slider"
@@ -125,6 +125,7 @@
         </label>
         <a
           class="button circle-button"
+          title="Mail Me!"
           rel="author"
           id="mail-button"
           href="mailto:riley.shahar@gmail.com"
@@ -132,6 +133,7 @@
         ></a>
         <a
           class="button circle-button"
+          title="My Github"
           rel="author"
           id="github-button"
           href="https://github.com/nihilistkitten"
@@ -192,7 +194,7 @@
       </div>
     </div>
 
-    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    <label title="Toggle Sidebar" for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src="{{ get_url(path='js/sidebar.js', cachebust=true) }}"></script>
   </body>
