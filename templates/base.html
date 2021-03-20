@@ -9,7 +9,7 @@
     />
 
     <title>
-      {{ page.title | default(value="Home") }} &#183; {{ config.title }}
+      {% block title %}{{ page.title | default(value="Home") }}{% endblock title %} &#183; {{ config.title }}
     </title>
 
     <link
