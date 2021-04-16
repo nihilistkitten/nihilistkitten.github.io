@@ -19,14 +19,18 @@ body {
   -ms-text-size-adjust: 100%;
   overflow-x: hidden;
   font-family: Lato, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
 }
-a {
+
+a,
+.footnote {
   text-decoration: underline;
   text-decoration-thickness: 0.05em;
 
   strong {
     color: inherit;
   }
+
   &:hover {
     text-decoration: underline;
   }
@@ -34,6 +38,7 @@ a {
     text-decoration: underline;
   }
 }
+
 h1 {
   margin-bottom: 0.5rem;
   font-weight: bold;
@@ -162,6 +167,8 @@ abbr[title] {
   border-bottom: 1px dotted #e5e5e5;
 }
 code {
+  background-color: #2b303b;
+  color: #c0c5ce;
   font-family: Inconsolata, Menlo, Monaco, "Courier New", monospace;
   // font-size: 85%;
   border-radius: 3px;
@@ -215,7 +222,13 @@ blockquote {
   }
 }
 
-a.footnote {
+// we want to position the footnotes relative to here
+p {
+  width: 100%;
+  position: relative;
+}
+
+.footnote {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -228,27 +241,22 @@ a.footnote {
     counter-increment: footnote;
     content: counter(footnote);
   }
-  span {
-    // display: flex;
-    position: absolute;
-    max-width: 20rem;
+  span:not(.fn-inner-wrapper) {
     padding: 14px 20px;
     opacity: 0;
     z-index: -1;
     border: 1px solid;
     border-radius: 3px;
-    // -webkit-transition-delay: 0.4s;
-    // -moz-transition-delay: 0.4s;
-    // -o-transition-delay: 0.4s;
-    // transition-delay: 0.4s;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    transform: translateY(1.3em);
+    width: 100%;
   }
   &:hover span {
     opacity: 1;
     z-index: 7;
-    // -webkit-transition: z-index 0s;
-    // -moz-transition: z-index 0s;
-    // -o-transition: z-index 0s;
-    // transition: z-index 0s;
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
@@ -494,7 +502,8 @@ th {
   background-color: #fffafa;
   color: black;
   font-weight: 400;
-  a {
+  a,
+  .footnote {
     color: inherit;
     text-decoration-color: #e75480;
     &:hover {
@@ -693,7 +702,8 @@ th {
   }
   background-color: #121212;
   color: rgba(255, 255, 255, 0.7);
-  a {
+  a ,
+  .footnote {
     color: inherit;
     text-decoration-color: #bf5fff;
     &:hover {
@@ -1071,13 +1081,8 @@ input {
     }
   }
 
-  a.footnote span {
-    max-width: 15rem;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+  .footnote span:not(.fn-inner-wrapper) {
+    transform: translateY(2em);
   }
 }
 @media (min-width: 48em) {
