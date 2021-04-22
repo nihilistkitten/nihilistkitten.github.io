@@ -224,7 +224,6 @@ blockquote {
 
 // we want to position the footnotes relative to here
 p {
-  width: 100%;
   position: relative;
 }
 
@@ -234,27 +233,21 @@ p {
   -ms-user-select: none;
   user-select: none;
   background-color: inherit;
-  padding-left: 2px;
-  padding-right: 2px;
-  margin-right: 2px;
   &:before {
     counter-increment: footnote;
     content: counter(footnote);
   }
-  span:not(.fn-inner-wrapper) {
+  .fn-outer-wrapper {
     padding: 14px 20px;
     opacity: 0;
     z-index: -1;
     border: 1px solid;
-    border-radius: 3px;
     position: absolute;
-    justify-content: center;
-    align-items: center;
     left: 0;
+    right: 0;
     transform: translateY(1.3em);
-    width: 100%;
   }
-  &:hover span {
+  &:hover .fn-outer-wrapper {
     opacity: 1;
     z-index: 7;
     -webkit-user-select: text;
@@ -1081,7 +1074,7 @@ input {
     }
   }
 
-  .footnote span:not(.fn-inner-wrapper) {
+  .footnote .fn-outer-wrapper {
     transform: translateY(2em);
   }
 }
