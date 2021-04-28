@@ -319,3 +319,44 @@ o.statusline = "%!luaeval('status_line()')"
 ```
 
 And you can start using lua to your heart's desire! If there's interest, I can write a list of useful APIs; my [statusline](https://github.com/nihilistkitten/dotfiles/blob/main/nvim/lua/statusline.lua) uses `vim.bo.modified`, `vim.bo.readonly`, `vim.lsp.diagnostic.get_count`, `vim.fn.mode`, `vim.bo.filetype`, and `vim.b.gitsigns_status` from the [gitsigns](https://github.com/lewis6991/gitsigns.nvim) plugin.
+
+## Addendum
+u/TDplay on [reddit](https://www.reddit.com/r/neovim/comments/n06p47/rolling_your_own_neovim_statusline_in_lua/gw6gshn/?utm_source=reddit&utm_medium=web2x&context=3) suggested a better solution to concatenate all the statusline elements: `table.concat`. Try this:
+
+```lua
+local fn = vim.fn
+local o = vim.o
+local cmd = vim.cmd
+
+local function highlight(group, fg, bg)
+    cmd("highlight " .. group .. " guifg=" .. fg .. " guibg=" .. bg)
+end
+
+highlight("StatusLeft", "red", "#32344a")
+highlight("StatusMid", "green", "#32344a")
+highlight("StatusRight", "blue", "#32344a")
+
+local function get_column_number()
+    return fn.col(".")
+end
+
+function status_line()
+    return table.concat(
+        {
+            "%#StatusLeft#",
+            "%f",
+            "%=",
+            "%#StatusMid#",
+            "%l,",
+            get_column_number(),
+            "%=",
+            "%#StatusRight#",
+            "%p%%"
+        }
+    )
+end
+
+vim.o.statusline = "%!luaeval('status_line()')"
+```
+
+And rejoice at the substantially improved readability!
