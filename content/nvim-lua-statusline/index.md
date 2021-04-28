@@ -341,19 +341,17 @@ local function get_column_number()
 end
 
 function status_line()
-    return table.concat(
-        {
-            "%#StatusLeft#",
-            "%f",
-            "%=",
-            "%#StatusMid#",
-            "%l,",
-            get_column_number(),
-            "%=",
-            "%#StatusRight#",
-            "%p%%"
-        }
-    )
+    return table.concat {
+        "%#StatusLeft#",
+        "%f",
+        "%=",
+        "%#StatusMid#",
+        "%l,",
+        get_column_number(),
+        "%=",
+        "%#StatusRight#",
+        "%p%%"
+    }
 end
 
 vim.o.statusline = "%!luaeval('status_line()')"
