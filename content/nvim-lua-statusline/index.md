@@ -5,7 +5,7 @@ date = 2021-04-27
 tags = ["neovim"]
 +++
 
-I've recently been rewriting my [neovim dotfiles](https://github.com/nihilistkitten/dotfiles/tree/main/nvim) in lua. One of the things I wanted to do was reduce my plugin dependencies{{ footnote(content="I only partially succeeded at this, unfortunately - I like cool toys too much.") }}, so rolling my own statusline seemed logical. I thought I'd write some quick documentation of my experience - most of this article is just a guided tool through the relevant help pages, but maybe it'll be helpful anyway.
+I've recently been rewriting my [neovim dotfiles](https://github.com/nihilistkitten/dotfiles/tree/main/nvim) in lua. One of the things I wanted to do was reduce my plugin dependencies{{ footnote(content="I only partially succeeded at this, unfortunately - I like cool toys too much.") }}, so rolling my own statusline seemed logical. I thought I'd write some quick documentation of my experience - most of this article is just a guided tour through the relevant help pages, but maybe it'll be helpful anyway.
 
 <!-- more -->
 
@@ -244,7 +244,7 @@ o.statusline = o.statusline .. "%p%%"
 
 (Sorry, mobile readers - not that any of these images have been great for you, but I'm sure this one is the worst of the bunch.)
 
-So that makes sense - it's trying to evaluate the whole string as an expression. One option is suggested by the help:
+Anyway, that error makes sense - it's trying to evaluate the whole string as an expression. One solution is suggested by the help:
 
 > The result can contain %{} items that will be evaluated too.
 >
@@ -318,4 +318,4 @@ end
 o.statusline = "%!luaeval('status_line()')"
 ```
 
-And you can start using lua to your heart's desire! If there's interest, I can write a list of useful APIs; my statusline uses `vim.bo.modified`, `vim.bo.readonly`, `vim.lsp.diagnostic.get_count`, `vim.fn.mode`, `vim.bo.filetype`, and `vim.b.gitsigns_status` from the [gitsigns](https://github.com/lewis6991/gitsigns.nvim) plugin.
+And you can start using lua to your heart's desire! If there's interest, I can write a list of useful APIs; my [statusline](https://github.com/nihilistkitten/dotfiles/blob/main/nvim/lua/statusline.lua) uses `vim.bo.modified`, `vim.bo.readonly`, `vim.lsp.diagnostic.get_count`, `vim.fn.mode`, `vim.bo.filetype`, and `vim.b.gitsigns_status` from the [gitsigns](https://github.com/lewis6991/gitsigns.nvim) plugin.
