@@ -1,7 +1,6 @@
 <!-- https://github.com/RatanShreshtha/DeepThought/blob/6bc44df307ab8f03c31ffe3ca99421072ec6f8bd/templates/macros.html#L92-L117 -->
 
 
-
 {% macro render_tags(tags) %}
     {% for tag in tags %}
       <a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>{% if not loop.last %},{% endif %}
