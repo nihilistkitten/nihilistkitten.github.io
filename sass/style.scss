@@ -223,7 +223,8 @@ blockquote {
 }
 
 // we want to position the footnotes relative to here
-p {
+p,
+ul {
   position: relative;
 }
 
@@ -695,7 +696,7 @@ th {
   }
   background-color: #121212;
   color: rgba(255, 255, 255, 0.7);
-  a ,
+  a,
   .footnote {
     color: inherit;
     text-decoration-color: #bf5fff;

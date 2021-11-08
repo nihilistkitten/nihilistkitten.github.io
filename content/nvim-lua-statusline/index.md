@@ -2,7 +2,7 @@
 title = "Rolling Your Own Neovim Statusline in Lua"
 date = 2021-04-27
 [taxonomies]
-tags = ["neovim"]
+tags = ["neovim", "development"]
 +++
 
 I've recently been rewriting my [neovim dotfiles](https://github.com/nihilistkitten/dotfiles/tree/main/nvim) in lua. One of the things I wanted to do was reduce my plugin dependencies{{ footnote(content="I only partially succeeded at this, unfortunately - I like cool toys too much.") }}, so rolling my own statusline seemed logical. I thought I'd write some quick documentation of my experience - most of this article is just a guided tour through the relevant help pages, but maybe it'll be helpful anyway.
@@ -16,6 +16,7 @@ Let's start by looking at what neovim gives us out of the box{{ footnote(content
 This is the file path from vim's current working directory (`:h current-directory`), the current line and column number, and some information about how far we are through the file{{ footnote(content="In fact, it gives you a little more info not shown here - a little [+] will show up next to the filename once modified, for instance. But that's not super relevant to what we're doing, and I don't want to take a screenshot of every possible permutation of the statusline.") }}.
 
 ## Modifying the Statusline
+
 Let's start with something basic: how do we change the statusline at all? For instance, let's say we want to write a static string.
 
 Well, as always with (neo)vim, our first resource should be the help pages. `:h statusline` tells us that:
@@ -27,28 +28,29 @@ Hm, ok, it seems like there's a statusline option{{ footnote(content="Vim option
 ```lua
 vim.o.statusline = "Hello, world!"
 ```
+
 And, indeed:
 
 ![The words "Hello, world!" on the same dark blue background.](hello-world-statusline.png)
 
 ## Dynamic Content
+
 So, statuslines aren't useful if they don't change. Let's read on in the help:
 
-> The option consists of printf style '%' items interspersed with normal text.  Each status line item is of the form:
+> The option consists of printf style '%' items interspersed with normal text. Each status line item is of the form:
 >
->   `%-0{minwid}.{maxwid}{item}`
+> `%-0{minwid}.{maxwid}{item}`
 >
-> All fields except the {item} are optional.  A single percent sign can be given as "%%".
+> All fields except the {item} are optional. A single percent sign can be given as "%%".
 
 We can ignore most of these fields (for now) - they're described in more detail later in the help page, if you're interested. What's important for us is the list of items, which is right underneath. There's a lot, so I won't reproduce them here. Let's look at a few simple ones:
 
-
 | item | help description                                                           |
-| -----|----------------------------------------------------------------------------|
+| ---- | -------------------------------------------------------------------------- |
 | f    | Path to the file in the buffer, as typed or relative to current directory. |
 | m    | Modified flag, text is "[+]"; "[-]" if 'modifiable' is off.                |
 | r    | Readonly flag, text is "[RO]".                                             |
-| y    | Type of file in the buffer, e.g., "[vim]".  See 'filetype'.                |
+| y    | Type of file in the buffer, e.g., "[vim]". See 'filetype'.                 |
 | l    | Line number.                                                               |
 | c    | Column number.                                                             |
 | p    | Percentage through file in lines as in CTRL-G.                             |
@@ -62,6 +64,7 @@ vim.o.statusline = "%f | %l,%c | %p%%"
 ![The same light text on dark blue; it reads src/tournament/from_url.rs | 8,6 | 2%, and is all aligned to the left. ](simple-dynamic-statusline.png)
 
 ## Alignment
+
 Ok, but, we're still not even better than the default statusline, which aligns the percentage number to the right, making better use of screen space. Again, the help comes to our rescue; it describes the `=` item as follows:
 
 > Separation point between alignment sections. Each section will be separated by an equal number of spaces.
@@ -77,6 +80,7 @@ Great! We've created a rough (slightly less featureful) facsimile of the default
 ![The same content as before, but instead of the pipes (|), the three sections are separated by spacing.](aligned-statusline.png)
 
 Now, in vimscript, you typically wouldn't write the whole statusline in one string like this. Instead, you'd do something like:
+
 ```vimscript
 set statusline=
 set statusline+=%f
@@ -87,6 +91,7 @@ set statusline+=%p%%
 ```
 
 We can simply emulate this in lua:
+
 ```lua
 local o = vim.o
 
@@ -99,6 +104,7 @@ o.statusline = o.statusline .. "%p%%"
 ```
 
 This seems kind of janky because of the lack of a self-concatenation operator in lua, but it'll be useful when we want to add more complicated items to our statusline. If you prefer, you can write this:
+
 ```lua
 vim.o.statusline = ""
                   .. "%f"
@@ -107,9 +113,11 @@ vim.o.statusline = ""
                   .. "%="
                   .. "%p%%"
 ```
+
 This looks nice but is undone by luafmt, which wants to put all string concatenations on one line.
 
 ## Adding Color
+
 Monochromatic statuslines are pretty boring. Fortunately, the help knows how to fix that:
 
 > \# - Set highlight group. The name must follow and then a # again. Thus use %#HLname# for highlight group HLname. The same highlighting is used, also for the statusline of non-current windows.
@@ -165,6 +173,7 @@ o.statusline = o.statusline .. "%p%%"
 By the way, please don't seriously use the ugly built-in colors, they're just for demonstration.
 
 ## Lua Components
+
 So far we've just translated from vimscript; let's very naively try to include some lua code in our statusline - you likely already see the error:
 
 ```lua
@@ -204,7 +213,7 @@ This is because we're evaluating `fn.col` only once, at initialization. We need 
 
 Well, the help page tells us how to do this in vimscript:
 
-> When the option starts with "%!" then it is used as an expression, evaluated and the result is used as the option value.  Example:
+> When the option starts with "%!" then it is used as an expression, evaluated and the result is used as the option value. Example:
 >
 > `:set statusline=%!MyStatusLine()`
 
@@ -321,6 +330,7 @@ o.statusline = "%!luaeval('status_line()')"
 And you can start using lua to your heart's desire! If there's interest, I can write a list of useful APIs; my [statusline](https://github.com/nihilistkitten/dotfiles/blob/main/nvim/lua/statusline.lua) uses `vim.bo.modified`, `vim.bo.readonly`, `vim.lsp.diagnostic.get_count`, `vim.fn.mode`, `vim.bo.filetype`, and `vim.b.gitsigns_status` from the [gitsigns](https://github.com/lewis6991/gitsigns.nvim) plugin.
 
 ## Addendum
+
 u/TDplay on [reddit](https://www.reddit.com/r/neovim/comments/n06p47/rolling_your_own_neovim_statusline_in_lua/gw6gshn/?utm_source=reddit&utm_medium=web2x&context=3) suggested a better solution to concatenate all the statusline elements: `table.concat`. Try this:
 
 ```lua
