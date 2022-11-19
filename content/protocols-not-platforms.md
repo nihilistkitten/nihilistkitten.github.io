@@ -2,7 +2,7 @@
 title = "Protocols, Not Platforms: A Mantra For The (We Can Only Hope) Post-Twitter Internet"
 date = 2022-11-11
 [taxonomies]
-tags = ["cs", "politics"]
+tags = ["tech", "politics"]
 +++
 
 *This is a reproduction of an article I wrote originally for the [Reed College

@@ -2,7 +2,7 @@
 title = "Basic Notes on Refactoring and Code Style"
 date = 2021-11-08
 [taxonomies]
-tags = ["python", "development"]
+tags = ["python", "development", "tech"]
 +++
 
 These are notes from a workshop I co-ran for students in Reed College's introductory CS course, [CS121](https://jimfix.github.io/csci121/), which I TA. They assume some basic familiarity with python. The purpose is to teach some fundamental principles of code style through the lens of refactoring. Because obviously what the world needs most is more unqualified people writing informal blog posts about development, I thought I'd post them here ;).

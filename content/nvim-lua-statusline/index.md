@@ -2,7 +2,7 @@
 title = "Rolling Your Own Neovim Statusline in Lua"
 date = 2021-04-27
 [taxonomies]
-tags = ["neovim", "development"]
+tags = ["neovim", "development", "tech"]
 +++
 
 I've recently been rewriting my [neovim dotfiles](https://github.com/nihilistkitten/dotfiles/tree/main/nvim) in lua. One of the things I wanted to do was reduce my plugin dependencies{{ footnote(content="I only partially succeeded at this, unfortunately - I like cool toys too much.") }}, so rolling my own statusline seemed logical. I thought I'd write some quick documentation of my experience - most of this article is just a guided tour through the relevant help pages, but maybe it'll be helpful anyway.
