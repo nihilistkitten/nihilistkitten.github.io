@@ -15,7 +15,7 @@
 
     <link
       rel="stylesheet"
-      href="{{ get_url(path='style.css', cachebust=true) }}"
+      href="{{ get_url(path='style.css') }}"
     />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -24,8 +24,8 @@
       href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Lato:wght@300&display=swap"
     />
 
-    <link rel="shortcut icon" href="{{ get_url(path='images/favicon.ico',
-    cachebust=true) }}" <link rel="apple-touch-icon" sizes="48x48" href="{{
+    <link rel="shortcut icon" href="{{ get_url(path='images/favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="48x48" href="{{
     resize_image(path="../static/images/apple-touch-icon-precomposed.png",
     width=48, height=48, op="fill") }}" /> <link rel="apple-touch-icon"
     sizes="72x72" href="{{
@@ -194,6 +194,6 @@
 
     <label title="Toggle Sidebar" for="sidebar-checkbox" class="sidebar-toggle"></label>
 
-    <script src="{{ get_url(path='js/sidebar.js', cachebust=true) }}"></script>
+    <script src="{{ get_url(path='js/sidebar.js') }}"></script>
   </body>
 </html>
