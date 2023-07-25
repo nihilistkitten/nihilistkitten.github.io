@@ -5,7 +5,7 @@ compile_sass = true
 taxonomies = [{ name = "tags", paginate_by = 10 }]
 
 # github pages compat
-output_dir = "docs"
+# output_dir = "docs"
 
 [markdown]
 # Whether to do syntax highlighting
@@ -15,5 +15,5 @@ smart_punctuation = true
 
 [extra]
 author = "Riley Shahar"
-generator = "Zola 0.13"
+generator = "Zola"
 # twitter = "nihilistkitten1"
