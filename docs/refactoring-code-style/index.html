@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <link href="http://gmpg.org/xfn/11" rel="profile" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+
+    <title>
+      Basic Notes on Refactoring and Code Style &#183; nihilistkitten
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="rileyshahar.github.io/style.css?h=05457ed98dfc1482301e"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Lato:wght@300&display=swap"
+    />
+
+    <link rel="shortcut icon" href="rileyshahar.github.io/images/favicon.ico?h=3ef500f1b046fbc6d467" <link rel="apple-touch-icon" sizes="48x48" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="72x72" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="96x96" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="144x144" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="192x192" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="256x256" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="384x384" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="512x512" href="[object]" />
+
+    <!-- seo tags -->
+             
+
+    <meta name="author" content="Riley Shahar" />
+    <meta
+      name="generator"
+      content="Zola 0.13"
+    />
+    <meta property="og:site_name" content="nihilistkitten" />
+
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+
+    
+
+    <meta property="og:title" content="Basic Notes on Refactoring and Code Style" />
+    <meta property="twitter:title" content="Basic Notes on Refactoring and Code Style" />
+
+    <meta name="description" content="&lt;p&gt;These are notes from a workshop I co-ran for students in Reed College’s introductory CS course, &lt;a href=&quot;https:&#x2F;&#x2F;jimfix.github.io&#x2F;csci121&#x2F;&quot;&gt;CS121&lt;&#x2F;a&gt;, which I TA. They assume some basic familiarity with python. The purpose is to teach some fundamental principles of code style through the lens of refactoring. Because obviously what the world needs most is more unqualified people writing informal blog posts about development, I thought I’d post them here ;).&lt;&#x2F;p&gt;
+" />
+    <meta name="og:description" content="&lt;p&gt;These are notes from a workshop I co-ran for students in Reed College’s introductory CS course, &lt;a href=&quot;https:&#x2F;&#x2F;jimfix.github.io&#x2F;csci121&#x2F;&quot;&gt;CS121&lt;&#x2F;a&gt;, which I TA. They assume some basic familiarity with python. The purpose is to teach some fundamental principles of code style through the lens of refactoring. Because obviously what the world needs most is more unqualified people writing informal blog posts about development, I thought I’d post them here ;).&lt;&#x2F;p&gt;
+" />
+    <meta name="twitter:description" content="&lt;p&gt;These are notes from a workshop I co-ran for students in Reed College’s introductory CS course, &lt;a href=&quot;https:&#x2F;&#x2F;jimfix.github.io&#x2F;csci121&#x2F;&quot;&gt;CS121&lt;&#x2F;a&gt;, which I TA. They assume some basic familiarity with python. The purpose is to teach some fundamental principles of code style through the lens of refactoring. Because obviously what the world needs most is more unqualified people writing informal blog posts about development, I thought I’d post them here ;).&lt;&#x2F;p&gt;
+" />
+
+    <link rel="canonical" href="rileyshahar.github.io&#x2F;refactoring-code-style&#x2F;" />
+    <meta property="og:url" content="rileyshahar.github.io&#x2F;refactoring-code-style&#x2F;" />
+
+		<!-- mathjax -->
+		<script>
+			MathJax = {
+				tex: {
+					inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+					displayMath: [ ['$$','$$'], ["\\[","\\]"], ]
+				}
+			};
+		</script>
+		<script type="text/javascript" async
+			src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+		</script>
+  </head>
+  <body class="dark-theme">
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" />
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-item">
+        <label class="switch" title="Toggle Darkmode" float="left" style="vertical-align: middle;">
+          <input id="darkmode-slider" type="checkbox" />
+          <a
+            class="slider"
+            onclick="toggleDarkMode()"
+            id="darkmode-slider-actual"
+          ></a>
+        </label>
+        <a
+          class="button circle-button"
+          title="Mail Me!"
+          rel="author"
+          id="mail-button"
+          href="mailto:riley.shahar@gmail.com"
+          style="vertical-align: middle;"
+        ></a>
+        <a
+          class="button circle-button"
+          title="Github"
+          rel="author"
+          id="github-button"
+          href="https://github.com/rileyshahar"
+          style="vertical-align: middle;"
+        ></a>
+        <a
+          class="button circle-button"
+          title="Resume"
+          rel="author"
+          id="resume-button"
+          href="rileyshahar.github.io/resume.html"
+          style="vertical-align: middle;"
+        ></a>
+      </div>
+
+      <div class="sidebar-item">
+        <p>Hi! I&#x27;m Riley. My pronouns are she&#x2F;they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void.</p>
+        <p>The quote in the header is from the 11th doctor, if you care.</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="sidebar-nav-item" href="rileyshahar.github.io" >Home</a>
+        <a class="sidebar-nav-item" href="rileyshahar.github.io/tags" >Tags</a>
+      </nav>
+
+
+      <div class="sidebar-item" style="font-size: 0.75em;">
+        <p>
+          Built with <a href="https://www.getzola.org/">Zola</a>. Style from
+          <a href="https://lanyon.getpoole.com">Lanyon</a>. The source for this
+          blog is available on
+          <a href="https://github.com/rileyshahar/rileyshahar.github.io">GitHub</a>.
+        </p>
+        <p>
+          &copy; 2021 Riley Shahar. This work is licensed under a
+          <a
+            rel="license"
+            href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+            style="color: inherit;"
+            >Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+            International License</a
+          >. Any code samples are licensed under the
+          <a
+            rel="license"
+            href="https://opensource.org/licenses/MIT"
+            style="color: inherit;"
+            >MIT License</a
+          >
+          unless otherwise stated.
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="rileyshahar.github.io/" title="Home">nihilistkitten</a>
+            <small>we're all stories in the end; just make it a good one</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        
+
+<div class="post">
+  
+  <h1 class="post-title">
+    <a href="rileyshahar.github.io&#x2F;refactoring-code-style&#x2F;">
+      Basic Notes on Refactoring and Code Style
+    </a>
+  </h1>
+  <span class="post-date">
+    2021-11-08
+    
+      &#183; 
+    
+      <a class="tag" href="rileyshahar.github.io/tags/python/">python</a>,
+    
+      <a class="tag" href="rileyshahar.github.io/tags/development/">development</a>,
+    
+      <a class="tag" href="rileyshahar.github.io/tags/tech/">tech</a>
+    
+
+    
+  </span>
+
+
+  <p>These are notes from a workshop I co-ran for students in Reed College’s introductory CS course, <a href="https://jimfix.github.io/csci121/">CS121</a>, which I TA. They assume some basic familiarity with python. The purpose is to teach some fundamental principles of code style through the lens of refactoring. Because obviously what the world needs most is more unqualified people writing informal blog posts about development, I thought I’d post them here ;).</p>
+<span id="continue-reading"></span><h2 id="introduction">Introduction</h2>
+<p>Refactoring is a process through which we make small, incremental changes to a piece of code, <em>without changing its external functionality</em>. Refactoring lets us improve the quality and structure of our code in order to make it easier to read, to modify, or to maintain. We’re going to work through a simple piece of code, refactoring it step-by-step, and along the way we’re going to talk about various fundamental ideas behind good code style.</p>
+<p>This is probably best read as an interactive experience. Think about each piece of code we show you and decide what changes you would make to it; maybe even download the code and make the changes on your machine. There are several times where we’ll ask you explicitly to think about some questions: try to do so before you keep reading and see our answer. Also, think critically about what we tell you. While much of this comes from (our understanding of) the accumulated wisdom of several generations of programmers, there’s also a significant degree of subjectivity in evaluating the quality of code.</p>
+<h2 id="some-bad-code">Some Bad Code</h2>
+<p>We’re going to start by looking at an example of pretty bad code:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>i=</span><span style="color:#d08770;">0
+</span><span>j=</span><span style="color:#d08770;">1
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>i,j=j,i+j
+</span><span style="color:#96b5b4;">print</span><span>(j)
+</span></code></pre>
+<p><em>Question: what is this code doing? Answer this without actually running the code in the terminal.</em></p>
+<p>This code prints the first eight <a href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a><sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">I&#x27;m starting from 1, which is not standard (usually you&#x27;d start with 0), just because it makes the code a little cleaner.</span></span></sup>
+. To do so, it relies on this “simultaneous assignment” notation, <code>i,j=j,i+j</code>, which updates <code>i</code> and <code>j</code> simultaneously in the way you’d expect, following the Fibonacci recursion.</p>
+<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>$ python fib.py
+</span><span>1
+</span><span>1
+</span><span>2
+</span><span>3
+</span><span>5
+</span><span>8
+</span><span>13
+</span><span>21
+</span></code></pre>
+<p>One aspect of refactoring is that you want to make sure you don’t break your code, since the whole point is to improve it without changing its behavior. Later, we’re going to write <em>unit tests</em>, which will help us verify this automatically. For now, I suggest running the file after every modification you make and ensuring it has <em>precisely</em> the same command-line behavior.</p>
+<p><em>Question: what are some issues with this code?</em></p>
+<h2 id="repetition">Repetition</h2>
+<p>This code does the same thing a bunch of times. We can easily rewrite this in a loop:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>i=</span><span style="color:#d08770;">0
+</span><span>j=</span><span style="color:#d08770;">1
+</span><span>
+</span><span>k=</span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">while </span><span>k&lt;</span><span style="color:#d08770;">8</span><span>:
+</span><span>    </span><span style="color:#96b5b4;">print</span><span>(j)
+</span><span>    i,j=j,i+j
+</span><span>    k+=</span><span style="color:#d08770;">1
+</span></code></pre>
+<p>This is an example of a basic principle of coding, called “Don’t Repeat Yourself,” or <em>DRY</em>.<sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">Like most principles, this is not absolute: you might not always want to deduplicate repeated code. One possible reason it might be is if code is duplicated by coincidence. Sometimes you have two pieces of code that look the same, but they&#x27;re subject to different requirements, and so if you deduplicate via a loop or function, you could end up needing to undo that change later in the line. If you&#x27;re not careful, you can end up with functions with 80 different optional arguments, each of which makes a small change to the behavior, because you tried to cram all of your seemingly duplicated code into functions, and then later needed to add arguments to configure the behavior of the function. One solution to this is _WET_, or write everything twice, an alternative to DRY. It holds that the first two duplications might be a coincidence, but the third probably indicates there&#x27;s some fundamental commonality between the problems you&#x27;re trying to solve, and so after the third duplication you should start deduplicating.</span></span></sup>
+</p>
+<p><em>Question: Why might we want to avoid repeating ourselves?</em></p>
+<ul>
+<li>Modifiability: say it turns out that we no longer want to print the numbers, but instead write them to a file. With the repeated version, you’d need to change all eight occurances of <code>print</code> to make this change. It might seems easy here, but imagine if this was a thousand-line-long piece of code and the <code>print</code>s were scattered throughout.<sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">This will be a common theme throughout: we&#x27;re working on a pretty simple example of code, and so while you could see why these changes might be useful, it&#x27;s kind of hard to see them as necessary for code like this. So we&#x27;ll use this fibonacci code as an example of what these changes look like, and sometimes we&#x27;ll need to talk more abstractly about why they&#x27;re useful.</span></span></sup>
+</li>
+<li>Error proneness: if one of our eight copies of the same code had a typo (say, it switched <code>i</code> and <code>j</code>), it would be very difficult to catch and debug.</li>
+<li>Readability: every time we update <code>i</code> and <code>j</code>, we do it on the same line of code. This makes it easy to understand the relationship <code>i</code> and <code>j</code> have to each other.</li>
+</ul>
+<h2 id="naming">Naming</h2>
+<p><code>i</code>, <code>j</code>, and <code>k</code> are not particularly easy to keep track of; it’s easy to mistake <code>i</code> for <code>j</code> in particular.</p>
+<p><em>Exercise: think of better names.</em></p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>prev=</span><span style="color:#d08770;">0
+</span><span>curr=</span><span style="color:#d08770;">1
+</span><span>
+</span><span>count=</span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">while </span><span>count&lt;</span><span style="color:#d08770;">8</span><span>:
+</span><span>    </span><span style="color:#96b5b4;">print</span><span>(curr)
+</span><span>    prev,curr=curr,prev+curr
+</span><span>    count+=</span><span style="color:#d08770;">1
+</span></code></pre>
+<p>This is an example of a <em>readability</em> refactor; its purpose is to make the code easier to read at a glance.</p>
+<p><em>Question: why do we care about readability?</em></p>
+<ul>
+<li>Code review: anyone reading with your code, be it your friends or professors or future-evil-corporate-boss (or your friendly TA graders! :P) will find it much easier if they can… you know… read the code easily. That will let them spend more mental energy helping you and less mental energy asking questions like “what did that variable mean again?”</li>
+<li>Other maintainers: similarly, you’ll often not be the only one <em>writing</em> the code. Following naming conventions is super important in collaborative projects, because even if the name makes sense to you (“I always use <code>l</code> for a list, why can’t I do that?”), it won’t make sense to your collaboratos.</li>
+<li>Future you: one important lesson from development is that, even on solo projects, you should treat <em>future you</em> like another person. In a week, you won’t remember a single thing about the specific choices you make writing this code; nevermind in a month or five years. Make sure your code is readable for your own sake.</li>
+</ul>
+<p>That said, three things to keep in mind with variable names:</p>
+<ul>
+<li><em>Convention</em>. The names <code>prev</code> and <code>curr</code> are conventionally used for this kind of iterative procedure when you need to keep track of the two previous values. Many programmers will automatically know the meanings of variables like <code>prev</code> and <code>curr</code> just from their names because they’ve read other code that used those same conventions. Other examples of this: <code>n</code> for some kind of bound, <code>ret</code> or <code>out</code> for the value that’s going to be returned at the end, <code>self</code> for the reciever of a method. In 121 we’ve used <code>xs</code> for a list of numbers.</li>
+<li><em>Length</em>. Avoid one-letter names except in rare cases (a very short loop index, or <code>n</code> for a bound). Also avoid unnecessarily long names like <code>the_fibonacci_number_that_i_calculated_previously</code>.</li>
+<li><em>Word Delineation</em>. <code>thepreviousnumber</code> is harder to read than <code>thePreviousNumber</code> or <code>the_previous_number</code>. The first style is called “camelCase” and the second is “snake_case”. <sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">In Python, there&#x27;s technically a [convention](https:&#x2F;&#x2F;www.python.org&#x2F;dev&#x2F;peps&#x2F;pep-0008&#x2F;#prescriptive-naming-conventions) to make almost everything snake_case, except for class names, which should be PascalCase (camelCase but with the first word also capitalized), and constants, which should be UPPER_CASE. But I might be the only one in the world who cares: as long as you&#x27;re consistent within your own code, the specific convention is probably not so important.</span></span></sup>
+</li>
+</ul>
+<h2 id="spacing">Spacing</h2>
+<p>Another readability issue: this code doesn’t use any spacing between operators. Here’s a better version:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span>prev = </span><span style="color:#d08770;">0
+</span><span>curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span>count = </span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">while </span><span>count &lt; </span><span style="color:#d08770;">8</span><span>:
+</span><span>    </span><span style="color:#96b5b4;">print</span><span>(curr)
+</span><span>    prev, curr = curr, prev + curr
+</span><span>    count += </span><span style="color:#d08770;">1
+</span></code></pre>
+<p>This is just visually easier to read, with clearer separation between variables.</p>
+<p>In fact, there’s a whole encyclopedia of python formatting conventions, called “PEP 8” (PEP means “Python Enhancement Proposal”), and different universities and companies each have their own modifications and additions to these. You don’t necessarily need to be so stringent as to follow this strictly in your own code, but it can be good to know.</p>
+<p>There are also tools that can automatically handle things like this kind of formatting for you. We’ll hopefully talk about these more in another workshop, but I personally use the command-line tool <code>black</code> for python.</p>
+<h2 id="commenting">Commenting</h2>
+<p>Comments make our code infinitely more readable by explaining in spoken language exactly what the code is doing.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">&quot;&quot;&quot;Compute the first 8 fibonacci numbers.&quot;&quot;&quot;
+</span><span>
+</span><span style="color:#65737e;"># initial values at (0,1)
+</span><span>prev = </span><span style="color:#d08770;">0
+</span><span>curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span>count = </span><span style="color:#d08770;">0
+</span><span style="color:#b48ead;">while </span><span>count &lt; </span><span style="color:#d08770;">8</span><span>:  </span><span style="color:#65737e;"># repeat 8 times
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># output the next number
+</span><span>    </span><span style="color:#96b5b4;">print</span><span>(curr)
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># update the numbers according to fibonacci rule: f(n) = f(n-1) + f(n-2)
+</span><span>    </span><span style="color:#65737e;"># using python&#39;s simultaneous assignment notation to allow this
+</span><span>    prev, curr = curr, prev + curr
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># increment the counter
+</span><span>    count += </span><span style="color:#d08770;">1
+</span></code></pre>
+<p>A few things to note:</p>
+<ul>
+<li>On top is a <em>docstring</em>, or “documentation string”. This is a special type of comment, written as a triple-quoted string, and placed at the start of a file, function, method, or class. Its purpose is to explain what the thing it documents does, without getting in to any of the details, so that anyone interested in using that object doesn’t need to understand the implementation in order to understand how to use it. There are even tools that automatically collect all of your docstrings into a pretty set of HTML files, so you can browse the documentation without needing to look at the actual code.</li>
+<li>Comments can explain what the code does and/or how it does it, e.x. the comment which talks about simultaneous assignment.</li>
+<li>There is such a thing as overcommenting (to be honest, this example is probably overcommented), but it’s way harder to overcomment than undercomment.</li>
+</ul>
+<p><em>Question: why might overcommenting sometimes be bad?</em></p>
+<h2 id="for-loop">For Loop</h2>
+<p>To do the same thing some number of times, the convention is to use a <code>for</code> loop, instead of a <code>while</code> loop, like so:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">&quot;&quot;&quot;Compute the first 8 fibonacci numbers.&quot;&quot;&quot;
+</span><span>
+</span><span style="color:#65737e;"># initial values at (0,1)
+</span><span>prev = </span><span style="color:#d08770;">0
+</span><span>curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span style="color:#65737e;"># repeat 8 times
+</span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(</span><span style="color:#d08770;">8</span><span>):
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># output the next number
+</span><span>    </span><span style="color:#96b5b4;">print</span><span>(curr)
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># update the numbers according to fibonacci rule: f(n) = f(n-1) + f(n-2)
+</span><span>    </span><span style="color:#65737e;"># using python&#39;s simultaneous assignment notation to allow this
+</span><span>    prev, curr = curr, prev + curr
+</span></code></pre>
+<p>The main reason to do this is so we can’t accidentally forget to increment our index.</p>
+<p>Note the special variable <code>_</code>. This is a conventional variable name, sometimes called a “throwaway” or “black hole” variable, for when your variable isn’t actually used. If we relied on the value of the counting variable to perform our computation, we could call it something like <code>count</code> or <code>index</code>.</p>
+<p>This is probably where I’d stop if I was just writing a short script to compute Fibonacci numbers, but if you were writing in a professional or collaborative environment, where there was potential for the requirements to change later, there’s a lot more that you could do.</p>
+<h2 id="function-abstraction">Function Abstraction</h2>
+<p>Right now, all our code is just sitting at the top level of our file. We should separate each piece of logic into its own function.</p>
+<p><em>Exercise: do this. Think about how small your functions can or should get.</em></p>
+<p>Here’s one example way to do this:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">&quot;&quot;&quot;Compute the first 8 fibonacci numbers.&quot;&quot;&quot;
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">fib_step</span><span>(</span><span style="color:#bf616a;">prev</span><span>, </span><span style="color:#bf616a;">curr</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Return the new previous and current numbers according to the fibonacci rule.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># return (f(n-1), f(n-1) + f(n-2))
+</span><span>    </span><span style="color:#b48ead;">return </span><span>curr, prev + curr
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">print_first_n_fib</span><span>(</span><span style="color:#bf616a;">n</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Print the first n fibonacci numbers.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># initial values at (0,1)
+</span><span>    prev = </span><span style="color:#d08770;">0
+</span><span>    curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># repeat n times
+</span><span>    </span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(n):
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># output the next number
+</span><span>        </span><span style="color:#96b5b4;">print</span><span>(curr)
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># update the numbers
+</span><span>        prev, curr = </span><span style="color:#bf616a;">fib_step</span><span>(prev, curr)
+</span><span>
+</span><span>
+</span><span style="color:#bf616a;">print_first_n_fib</span><span>(</span><span style="color:#d08770;">8</span><span>)
+</span></code></pre>
+<p>A few things to note:</p>
+<ul>
+<li>The functions and arguments should be named descriptively and according to convention, similarly to the variable names.</li>
+<li>There’s a docstring explaining what each function does. I really think short docstrings are extremely helpful, even for short functions, and like comments, it’s much easier to underuse than overuse them.</li>
+<li>You need to call the function at the bottom: <code>print_first_n_fib(8)</code>, so the script keeps its command-line behavior.</li>
+</ul>
+<p><em>Question: why are functions helpful here?</em></p>
+<ul>
+<li>Abstraction: our <code>first_n_fib</code> function doesn’t need to know the specific Fibonacci recurrence relation in order to drive the loop that implements the relation. This helps us find bugs faster.</li>
+<li>Code reuse: say we later have a project where we need to compute the first eight <a href="https://en.wikipedia.org/wiki/Lucas_number">Lucas numbers</a>. We could import <code>fib_step</code> into that project, since the step is the same.</li>
+</ul>
+<h2 id="single-responsibility">Single Responsibility</h2>
+<p>Right now, our <code>print_first_n_fib</code> function has two jobs: it’s both responsible for <em>computing</em> the first n Fibonacci numbers (using its helper function <code>fib_step</code>), and for <em>printing</em> them to the terminal. Let’s say that tomorrow, the powers that be decided that our code needs to compute the sum of the first 8 Fibonacci numbers, instead of just printing them out. Or, say we needed to write them to a file, instead of printing them. We would need to look through our code for actually computing the Fibonacci numbers (the process for which hasn’t changed) in order to make either of these changes.</p>
+<p>Instead, we can refactor our code like so:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">&quot;&quot;&quot;Compute the first 8 fibonacci numbers.&quot;&quot;&quot;
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">fib_step</span><span>(</span><span style="color:#bf616a;">prev</span><span>, </span><span style="color:#bf616a;">curr</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Return the new previous and current numbers according to the fibonacci rule.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># return (f(n-1), f(n-1) + f(n-2))
+</span><span>    </span><span style="color:#b48ead;">return </span><span>curr, prev + curr
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">first_n_fib</span><span>(</span><span style="color:#bf616a;">n</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Return a list of the first n fibonacci numbers.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># initial values at (0,1)
+</span><span>    prev = </span><span style="color:#d08770;">0
+</span><span>    curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># stores the computed values for later return
+</span><span>    ret = []
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># repeat n times
+</span><span>    </span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(n):
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># store the next number
+</span><span>        ret.</span><span style="color:#bf616a;">append</span><span>(curr)
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># update the numbers
+</span><span>        prev, curr = </span><span style="color:#bf616a;">fib_step</span><span>(prev, curr)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span>ret
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">print_list</span><span>(</span><span style="color:#bf616a;">to_print</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Print each value in to_print.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#b48ead;">for </span><span>val </span><span style="color:#b48ead;">in </span><span>to_print:
+</span><span>        </span><span style="color:#96b5b4;">print</span><span>(val)
+</span><span>
+</span><span>
+</span><span>lst = </span><span style="color:#bf616a;">first_n_fib</span><span>(</span><span style="color:#d08770;">8</span><span>)
+</span><span style="color:#bf616a;">print_list</span><span>(lst)
+</span></code></pre>
+<p>Now each of our functions has a single responsibility: <code>first_n_fib</code> is responsible for <em>computing</em> the Fibonacci numbers, and <code>print_list</code> prints each item in an <em>arbitrary</em> list, which, in this case, is our list of Fibonacci numbers. If we need to print another list, we can reuse the code we wrote for <code>print_list</code>, and if we need to do some other computation on the Fibonacci numbers, we can reuse the code to compute the first <code>n</code> numbers.</p>
+<p>This is an example of the “Single Responsibility Principle”, or <em>SRP</em>. The SRP says that each function or class should be responsible for a single thing. What a “thing” means here is often left kind of vague and left to your best judgement. Another way to think of this principle is that each piece of code should have only a single reason to change: <code>first_n_fib</code> only changes if the definition of the Fibonacci numbers changes, <code>print_list</code> only changes if we decide there’s a better way to print out lists (say, separated by commas, instead of newlines), and the code at the bottom changes in response to changes in the high-level requirements of our code; e.g., it could call a function <code>save_list_to_file</code> instead of <code>print_list</code>.</p>
+<h2 id="testing">Testing</h2>
+<p>A major, major advantage of the SRP is <em>automated testing</em>. Here, we’re going to use a tool called <code>pytest</code>, a very standard tool for automatic testing of python code. You can probably install it with <code>pip3 install -U pytest</code>. We’ll talk more about testing in a future workshop, but the basic idea is that <code>pytest</code> looks for functions whose names start with <code>test_</code>. We can use the special <code>assert</code> keyword inside these functions to cause a test to fail if any arbitrary condition is false. Note that we couldn’t have written code like this before we did the SRP refactor: <code>print_first_n_fib</code> didn’t return anything, and testing printed output is much, much harder than testing return values.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#65737e;">&quot;&quot;&quot;Compute the first 8 fibonacci numbers.&quot;&quot;&quot;
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">fib_step</span><span>(</span><span style="color:#bf616a;">prev</span><span>, </span><span style="color:#bf616a;">curr</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Return the new previous and current numbers according to the fibonacci rule.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># return (f(n-1), f(n-1) + f(n-2))
+</span><span>    </span><span style="color:#b48ead;">return </span><span>curr, prev + curr
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">first_n_fib</span><span>(</span><span style="color:#bf616a;">n</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Return a list of the first n fibonacci numbers.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#65737e;"># initial values at (0,1)
+</span><span>    prev = </span><span style="color:#d08770;">0
+</span><span>    curr = </span><span style="color:#d08770;">1
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># stores the computed values for later return
+</span><span>    ret = []
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># repeat n times
+</span><span>    </span><span style="color:#b48ead;">for </span><span style="color:#bf616a;">_ </span><span style="color:#b48ead;">in </span><span style="color:#96b5b4;">range</span><span>(n):
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># store the next number
+</span><span>        ret.</span><span style="color:#bf616a;">append</span><span>(curr)
+</span><span>
+</span><span>        </span><span style="color:#65737e;"># update the numbers
+</span><span>        prev, curr = </span><span style="color:#bf616a;">fib_step</span><span>(prev, curr)
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span>ret
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">print_list</span><span>(</span><span style="color:#bf616a;">to_print</span><span>):
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Print each value in to_print.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#b48ead;">for </span><span>val </span><span style="color:#b48ead;">in </span><span>to_print:
+</span><span>        </span><span style="color:#96b5b4;">print</span><span>(val)
+</span><span>
+</span><span>
+</span><span>lst = </span><span style="color:#bf616a;">first_n_fib</span><span>(</span><span style="color:#d08770;">8</span><span>)
+</span><span style="color:#bf616a;">print_list</span><span>(lst)
+</span><span>
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">test_first_n_fib_0</span><span>():
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Test that `first_n_fib` is correct for n=0.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#b48ead;">assert </span><span style="color:#bf616a;">first_n_fib</span><span>(</span><span style="color:#d08770;">0</span><span>) == []
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">test_first_n_fib_2</span><span>():
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Test that `first_n_fib` is correct for n=2.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#b48ead;">assert </span><span style="color:#bf616a;">first_n_fib</span><span>(</span><span style="color:#d08770;">2</span><span>) == [</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>]
+</span><span>
+</span><span style="color:#b48ead;">def </span><span style="color:#8fa1b3;">test_first_n_fib_10</span><span>():
+</span><span>    </span><span style="color:#65737e;">&quot;&quot;&quot;Test that `first_n_fib` is correct for n=10.&quot;&quot;&quot;
+</span><span>    </span><span style="color:#b48ead;">assert </span><span style="color:#bf616a;">first_n_fib</span><span>(</span><span style="color:#d08770;">10</span><span>) == [</span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">2</span><span>, </span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">5</span><span>, </span><span style="color:#d08770;">8</span><span>, </span><span style="color:#d08770;">13</span><span>, </span><span style="color:#d08770;">21</span><span>, </span><span style="color:#d08770;">34</span><span>, </span><span style="color:#d08770;">55</span><span>]
+</span></code></pre>
+<p>Because our tests are in the same file as our code<sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">In production code, you&#x27;d probably want a separate directory, `tests`, with a bunch of files with names like `test_fib.py`, each of which had these `test_`functions. Then `pytest` would automatically discover those tests without needing a command-line argument.</span></span></sup>
+, we run pytest like <code>pytest fib.py</code><sup class="footnote"><span class="fn-outer-wrapper"><span class="fn-inner-wrapper">Try it! Seriously, pytest is _awesome_. You&#x27;re never going to test your code by hand ever again.</span></span></sup>
+ from the command line. You might rightly complain that we’ve duplicated code here (the tests are the same, except for the expected inputs and outputs): pytest has a feature which will let us fix this, but it’s outside the scope of this workshop, unfortuantely. Again, we’ll hopefully talk more about testing in another workshop, but it’s super helpful for refactoring so we wanted to mention how it works: now we can run our tests after each refactor to make sure the refactor didn’t break the part of our code that’s tested.</p>
+<h2 id="addendum-removing-the-list">Addendum: Removing the List</h2>
+<p>By some measures, this code is actually worse than what we had originally, because it needs to allocate an entire list, whereas before we just needed <code>prev</code> and <code>curr</code>. As a result, it’ll be slightly slower, and it requires (even asymptotically) more storage space on the disk than the previous version did. In the workshop, we left it there. I’m a big believer in writing readable, testable, maintainable code before you focus on optimization: well-written code is generally easier to confidently optimize, and often code you’re writing isn’t really performance-sensitive: maybe there’s a much bigger performance bottleneck in your codebase, or maybe you’re just writing a one-time script for something and it’s ok if it takes a little bit of extra time.</p>
+<p>That said, for the writeup, I wanted to give some suggestions about how to remove this extra list. The most idiomatic way to do this, in my opinion, is probably using a python feature called generators. This is outside the scope of 121, so I won’t get into details here, but the idea is to “pause executing” the function at each fibonacci number, letting the caller do something with that number, and then only continuing when they ask for the next number. If you’re interested, there are lots of resources online that can help you with this concept.</p>
+
+</div>
+
+      </div>
+    </div>
+
+    <label title="Toggle Sidebar" for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="rileyshahar.github.io/js/sidebar.js?h=3a8c5f52332cc1c1ef9d"></script>
+  </body>
+</html>

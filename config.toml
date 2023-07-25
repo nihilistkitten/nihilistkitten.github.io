@@ -1,10 +1,11 @@
 title = "nihilistkitten"
 description = "Hi! I'm Riley. My pronouns are she/they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void."
-base_url = "https://nihilistkitten.me"
+base_url = "rileyshahar.github.io"
 compile_sass = true
-taxonomies = [
-  { name = "tags", paginate_by = 10 },
-]
+taxonomies = [{ name = "tags", paginate_by = 10 }]
+
+# github pages compat
+output_dir = "docs"
 
 [markdown]
 # Whether to do syntax highlighting
@@ -15,4 +16,4 @@ smart_punctuation = true
 [extra]
 author = "Riley Shahar"
 generator = "Zola 0.13"
-twitter = "nihilistkitten1"
+# twitter = "nihilistkitten1"

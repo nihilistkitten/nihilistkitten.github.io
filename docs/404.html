@@ -1,4 +1,3 @@
-{% import 'macros.html' as macros %}
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -10,12 +9,12 @@
     />
 
     <title>
-      {% block title %}{{ page.title | default(value="Home") }}{% endblock title %} &#183; {{ config.title }}
+      404: Page not found &#183; nihilistkitten
     </title>
 
     <link
       rel="stylesheet"
-      href="{{ get_url(path='style.css', cachebust=true) }}"
+      href="rileyshahar.github.io/style.css?h=05457ed98dfc1482301e"
     />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -24,68 +23,40 @@
       href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Lato:wght@300&display=swap"
     />
 
-    <link rel="shortcut icon" href="{{ get_url(path='images/favicon.ico',
-    cachebust=true) }}" <link rel="apple-touch-icon" sizes="48x48" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=48, height=48, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="72x72" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=72, height=72, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="96x96" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=96, height=96, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="144x144" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=144, height=144, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="192x192" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=192, height=192, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="256x256" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=256, height=256, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="384x384" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=384, height=384, op="fill") }}" /> <link rel="apple-touch-icon"
-    sizes="512x512" href="{{
-    resize_image(path="../static/images/apple-touch-icon-precomposed.png",
-    width=512, height=512, op="fill") }}" />
+    <link rel="shortcut icon" href="rileyshahar.github.io/images/favicon.ico?h=3ef500f1b046fbc6d467" <link rel="apple-touch-icon" sizes="48x48" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="72x72" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="96x96" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="144x144" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="192x192" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="256x256" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="384x384" href="[object]" /> <link rel="apple-touch-icon"
+    sizes="512x512" href="[object]" />
 
     <!-- seo tags -->
-    {% set author = config.extra.author | default(value='Anonymous') %} {% if
-    page.title %} {% set title = page.title %} {% elif section.title %} {% set
-    title = section.title %} {% else %} {% set title = "Home" %} {% endif %} {%
-    if page.description %} {% set description = page.description %} {% elif
-    page.summary %} {% set description = page.summary %} {% elif
-    section.description %} {% set description = section.description %} {% else
-    %} {% set description = config.description %} {% endif %} {% if
-    page.permalink %} {% set canonical_url = page.permalink %} {% elif
-    section.permalink %} {% set canonical_url = section.permalink %} {% else %}
-    {% set canonical_url = config.base_url %} {% endif %}
+           
+     
 
-    <meta name="author" content="{{ author }}" />
+    <meta name="author" content="Riley Shahar" />
     <meta
       name="generator"
-      content="{{ config.extra.generator | default(value='Zola') }}"
+      content="Zola 0.13"
     />
-    <meta property="og:site_name" content="{{ config.title }}" />
+    <meta property="og:site_name" content="nihilistkitten" />
 
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
 
-    {% if config.extra.twitter %}
-    <meta name="twitter:creator" content="{{ config.extra.twitter }}" />
-    <meta name="twitter:site" content="{{ config.extra.twitter }}" />
-    {% endif %}
+    
 
-    <meta property="og:title" content="{{ title }}" />
-    <meta property="twitter:title" content="{{ title }}" />
+    <meta property="og:title" content="Home" />
+    <meta property="twitter:title" content="Home" />
 
-    <meta name="description" content="{{ description }}" />
-    <meta name="og:description" content="{{ description }}" />
-    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="description" content="Hi! I&#x27;m Riley. My pronouns are she&#x2F;they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void." />
+    <meta name="og:description" content="Hi! I&#x27;m Riley. My pronouns are she&#x2F;they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void." />
+    <meta name="twitter:description" content="Hi! I&#x27;m Riley. My pronouns are she&#x2F;they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void." />
 
-    <link rel="canonical" href="{{ canonical_url }}" />
-    <meta property="og:url" content="{{ canonical_url }}" />
+    <link rel="canonical" href="rileyshahar.github.io" />
+    <meta property="og:url" content="rileyshahar.github.io" />
 
 		<!-- mathjax -->
 		<script>
@@ -134,19 +105,19 @@
           title="Resume"
           rel="author"
           id="resume-button"
-          href="{{ config.base_url }}/resume.html"
+          href="rileyshahar.github.io/resume.html"
           style="vertical-align: middle;"
         ></a>
       </div>
 
       <div class="sidebar-item">
-        <p>{{ config.description }}</p>
+        <p>Hi! I&#x27;m Riley. My pronouns are she&#x2F;they. This site serves two purposes: an excuse to play with random web technologies, and a tool to scream meaninglessly into the void.</p>
         <p>The quote in the header is from the 11th doctor, if you care.</p>
       </div>
 
       <nav class="sidebar-nav">
-        <a class="sidebar-nav-item" href="{{ config.base_url }}" >Home</a>
-        <a class="sidebar-nav-item" href="{{ get_url(path="tags") }}" >Tags</a>
+        <a class="sidebar-nav-item" href="rileyshahar.github.io" >Home</a>
+        <a class="sidebar-nav-item" href="rileyshahar.github.io/tags" >Tags</a>
       </nav>
 
 
@@ -181,19 +152,26 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <a href="{{ config.base_url }}/" title="Home">{{ config.title }}</a>
+            <a href="rileyshahar.github.io/" title="Home">nihilistkitten</a>
             <small>we're all stories in the end; just make it a good one</small>
           </h3>
         </div>
       </div>
 
       <div class="container content">
-        {% block content %} {% endblock %}
+        
+
+<h1 id="404-page-not-found">404: Page not found</h1>
+
+<p>Sorry! That link is pointing to something that's moved or doesn't exist.</p>
+<p><a href="rileyshahar.github.io">Return home</a></p>
+
+
       </div>
     </div>
 
     <label title="Toggle Sidebar" for="sidebar-checkbox" class="sidebar-toggle"></label>
 
-    <script src="{{ get_url(path='js/sidebar.js', cachebust=true) }}"></script>
+    <script src="rileyshahar.github.io/js/sidebar.js?h=3a8c5f52332cc1c1ef9d"></script>
   </body>
 </html>

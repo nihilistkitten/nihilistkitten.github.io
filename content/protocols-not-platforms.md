@@ -6,7 +6,7 @@ tags = ["tech", "politics"]
 +++
 
 *This is a reproduction of an article I wrote originally for the [Reed College
-Quest](https://reedquest.org/articles/2022/11/11/rkjjsnoikkjvwf597qvlvkidmn2yi7).**
+Quest](https://reedquest.org/2022/11/11/2022-11-11-rkjjsnoikkjvwf597qvlvkidmn2yi7/).**
 
 *CW - briefly mentions misgendering & deadnaming*
 
